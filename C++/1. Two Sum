@@ -1,1 +1,63 @@
 
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+	vector<int> twoSum(vector<int>& nums, int target) {
+  
+		unordered_map<int, int> hashMap;
+		for (int i = 0; i < nums.size(); i++) {
+			//unordered_map<int, int>::const_iterator it = hashMap.find(target - nums[i]);
+			auto it = hashMap.find(target - nums[i]);
+			if (it != hashMap.end()) {
+				return { it->second, i };
+			}
+			hashMap[nums[i]] = i;
+			//hashMap.insert({ {nums[i], i} });
+		}
+		return {};
+	}
+};
+
+int main()
+{
+	//unordered_map<string, double>
+	//myMap,
+	//existMap = { {"salt", 0.24},{"oil", 1.4} };
+
+	//myMap["milk"] = 0.15;
+	//myMap.insert({ {"meat", 2.74} });
+	//myMap.insert(existMap.begin(), existMap.end());
+
+	////displayMap(myMap, "myMap is:");
+
+	//for (auto& i : myMap) {
+	//	cout << i.first << endl;
+	//}
+
+	//auto it = myMap.find("milk");
+	//if (it == myMap.end()) {
+	//	cout << "not found" << endl;
+	//}
+	//else {
+	//	cout << "found " << it->first << ": " << it->second << endl;
+	//}
+
+	Solution s;
+	//int a[] = { 2, 3, 4, 1, 5 };
+	//vector<int> pre(a, a+5);
+	vector<int> pre = { 2, 3, 4, 1, 5 };
+  int target = 8;
+	vector<int> ans = s.twoSum(pre, target);
+	
+	for (int i = 0; i < ans.size(); i++) {
+		cout << ans[i] << " ";
+	}
+	
+	system("pause");
+	return 0;
+}
