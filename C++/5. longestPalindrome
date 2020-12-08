@@ -1,0 +1,55 @@
+class Solution {
+public:
+    pair<int, int> expandAroundCenter(const string& s, int left, int right){
+        while (left >= 0 && right < s.size() && s[left] == s[right]){
+            left--;
+            right++;
+        }
+        return {left + 1, right - 1};
+    }
+
+    // cost more running time
+    void expandAroundCenter1(const string& s, int& left, int& right){
+        while (left >= 0 && right < s.size() && s[left] == s[right]){
+            left--;
+            right++;
+        }
+        left++;
+        right--;
+    }
+
+    string longestPalindrome(string s) {
+        int start = 0, end = 0;
+        for (int i = 0; i < s.size(); i++){
+            auto [left1, right1] = expandAroundCenter(s, i, i);
+            auto [left2, right2] = expandAroundCenter(s, i, i+1);
+
+            // same as above
+            // pair<int, int> a = expandAroundCenter(s, i, i);
+            // pair<int, int> b = expandAroundCenter(s, i, i+1);
+            // int
+            //     left1 = a.first,
+            //     right1 = a.second,
+            //     left2 = b.first,
+            //     right2 = b.second;
+
+            // int 
+            //     left1 = i, 
+            //     right1 = i,
+            //     left2 = i,
+            //     right2 = i + 1;
+            // expandAroundCenter1(s, left1, right1);
+            // expandAroundCenter1(s, left2, right2);
+
+            if (right1 - left1 > end - start){
+                start = left1;
+                end = right1;
+            }
+            if (right2 - left2 > end - start){
+                start = left2;
+                end = right2;
+            }
+        }
+        return s.substr(start, end - start + 1);
+    }
+};
