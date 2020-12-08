@@ -1,0 +1,17 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if (numRows == 1) return s;
+        vector<string> rows(min(numRows, int(s.size())));
+        int line = 0;
+        bool turn = false;
+        for (char c : s){
+            rows[line] += c;
+            if (line == 0 || line == numRows - 1) turn = !turn;
+            line += turn ? 1 : -1;
+        }
+        string ret;
+        for (string row : rows) ret += row;
+        return ret;
+    }
+};
