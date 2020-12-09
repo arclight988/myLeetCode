@@ -1,0 +1,14 @@
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows == 1: return s
+        rows = ["" for _ in range (min(len(s), numRows))] 
+        line = 0
+        turn = False
+        for c in s:
+            rows[line] += c
+            if (line == 0 or line == numRows - 1): turn = bool(1-turn)
+            line += 1 if turn else -1
+        ret = ""
+        for row in rows:
+            ret += row
+        return ret
