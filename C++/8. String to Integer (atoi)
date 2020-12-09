@@ -1,0 +1,53 @@
+class Automaton{
+    string state = "start";
+    unordered_map<string, vector<string>> table = {
+        {"start", {"start", "signed", "number", "end"}},
+        {"signed", {"end", "end", "number", "end"}},
+        {"number", {"end", "end", "number", "end"}},
+        {"end", {"end", "end", "end", "end"}}
+    };
+    int get_col(char c){
+        if (isspace(c)) return 0;
+        else if (c == '+' || c == '-') return 1;
+        else if (isdigit(c)) return 2;
+        else return 3;
+    }
+public:
+    int flag = 1;
+    long long ans = 0;
+    void get(char c){
+        state = table[state][get_col(c)];
+        if (state == "number"){
+            ans = ans * 10 + c - '0';
+            ans = flag == 1 ? min(ans, (long long)INT_MAX) : min(ans, -(long long)INT_MIN);
+        }
+        if (state == "signed"){
+            flag = c == '+' ? 1 : -1;
+        }
+    }
+};
+
+class Solution {
+public:
+    int myAtoi(string s) {
+        Automaton automaton;
+        for (char c : s) automaton.get(c);
+        return automaton.flag * automaton.ans;
+    }
+};
+
+// class Solution {
+// public:
+//     int myAtoi(string s) {
+//         int i = 0, ans = 0, flag = 1;
+//         while (s[i] == ' ') i++;
+//         if (s[i] == '-') flag = -1;
+//         if (s[i] == '+' or s[i] == '-') i++;
+//         for (; i < s.size() and isdigit(s[i]); i++){
+//             if (ans > INT_MAX/10 or (ans == INT_MAX/10 and s[i] > '7'))
+//                 return flag == 1 ? INT_MAX : INT_MIN;
+//             ans = ans * 10 + (s[i] - '0');
+//         }
+//         return flag * ans;
+//     }
+// };
