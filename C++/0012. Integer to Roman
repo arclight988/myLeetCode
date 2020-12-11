@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string intToRoman(int num) {
+        vector<int> n = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        vector<string> s = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        // vector<pair<int, string>> digits;
+        // for (int i = 0; i < n.size(); i++)
+        //     digits.emplace_back(n[i], s[i]);
+        
+        string roman = "";
+        // for (pair<int, string> x : digits){
+        //     if (num == 0) break;
+        //     int count = num / x.first;
+        //     num = num % x.first;
+        //     for (int i = 0; i < count; i++)
+        //         roman += x.second;
+        // }
+        for (int i = 0; i < n.size(); i++){
+            if (num == 0) break;
+            int count = num / n[i];
+            num = num % n[i];
+            for (int j = 0; j < count; j++)
+                roman += s[i];
+        }
+        return roman;
+    }
+};
