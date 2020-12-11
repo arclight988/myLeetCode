@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        int ans = 0;
+        int preNum = getValue(s[0]);
+        for (int i = 1; i < s.size(); i++){
+            int num = getValue(s[i]);
+            if (preNum < num)
+                ans -= preNum;
+            else
+                ans += preNum;
+            preNum = num;
+        }
+        ans += preNum;
+        return ans;
+    }
+    
+private:
+    int getValue(char c){
+        switch (c){
+            case 'I': return 1; break;
+            case 'V': return 5; break;
+            case 'X': return 10; break;
+            case 'L': return 50; break;
+            case 'C': return 100; break;
+            case 'D': return 500; break;
+            case 'M': return 1000; break;
+            default: return 0; break;
+        }
+    }
+};
