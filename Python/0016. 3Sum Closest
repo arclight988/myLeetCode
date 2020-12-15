@@ -1,0 +1,24 @@
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        ans = 10**7
+        nums.sort()
+        def update(cur):
+            nonlocal ans
+            if abs(cur - target) < abs(ans - target): ans = cur
+        for i in range(n):
+            if i > 0 and nums[i] == nums[i-1]: continue
+            j, k = i + 1, n - 1
+            while j < k:
+                sum_ = nums[i] + nums[j] + nums[k]
+                if sum_ == target: return target
+                update(sum_)
+                if sum_ < target:
+                    j0 = j + 1
+                    while j0 < k and nums[j0] == nums[j0 - 1]: j0+=1
+                    j = j0
+                if sum_ > target:
+                    k0 = k - 1
+                    while j < k0 and nums[k0] == nums[k0 + 1]: k0 -=1
+                    k = k0
+        return ans
