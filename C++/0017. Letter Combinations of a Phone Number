@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> ans;
+        if (digits.empty()) return ans;
+        string temp;
+        unordered_map<char, string> phoneMap = {
+            {'2', "abc"},
+            {'3', "def"},
+            {'4', "ghi"},
+            {'5', "jkl"},
+            {'6', "mno"},
+            {'7', "pqrs"},
+            {'8', "tuv"},
+            {'9', "wxyz"}
+        };
+        backTrack(ans, temp, phoneMap, digits, 0);
+        return ans;
+    }
+    void backTrack(vector<string>& ans, string& temp, const unordered_map<char, string>& phoneMap, const string& digits, int num) {
+        if (num == digits.size()) ans.push_back(temp);
+        else {
+            char digit = digits[num];
+            const string& letters = phoneMap.at(digit);
+            for (const char& c : letters) {
+                temp.push_back(c);
+                backTrack(ans, temp, phoneMap, digits, num + 1);
+                temp.pop_back();
+            }
+        }
+    }
+};
